@@ -81,6 +81,64 @@ namespace CollectionsExercises
               
                 Console.WriteLine($"{names} is my {person} and is {ages} years old.");
             }
+
+
+            Console.WriteLine();
+
+            //Stock Purchase Dictionary
+            var stocks = new Dictionary<string, string>()
+            {
+                { "GM", "General Motors" },
+                { "CAT", "Caterpillar" },
+                { "F", "Ford" },
+                { "PEP", "Pepsi" },
+                { "COKE", "Coca-Cola" }
+            };
+
+            //To get value from Dictionary, can use square brackets with Key
+            string gmStock = stocks["GM"];
+            Console.WriteLine(gmStock);
+
+            //Tuple
+            List<(string ticker, int shares, double price)> purchases = new List<(string, int, double)>();
+            purchases.Add((ticker: "GM", shares: 150, price: 55.05)); //can write each type's name
+            purchases.Add(("CAT", 5, 208.35));
+            purchases.Add(("F", 75, 13.80));
+            purchases.Add(("PEP", 125, 154.33));
+            purchases.Add(("COKE", 25, 393.31));
+            purchases.Add(("CSCO", 15, 55.59));
+            purchases.Add(("SYY", 50, 73.92));
+            purchases.Add(("ZM", 122, 383.47));
+
+            var ownershipReport = new Dictionary<string, double>();
+
+            foreach ((string ticker, int shares, double price) purchase in purchases)
+            {
+                var value = purchase.shares * purchase.price;
+                if (ownershipReport.ContainsKey(purchase.ticker))
+                {
+                    ownershipReport[purchase.ticker] += value;
+                    Console.WriteLine($"{purchase.ticker} ${value}");
+                }
+                else
+                {
+                    ownershipReport.Add(purchase.ticker, value);
+                    Console.WriteLine($"{purchase.ticker} ${value}");
+                }
+            }
+
+            Console.WriteLine("************OWNERSHIP REPORT*********************");
+
+            foreach (var item in ownershipReport)
+            {
+                foreach (var stock in stocks)
+                {
+                    if(item.Key == stock.Key)
+                    {
+                        Console.WriteLine($"{stock.Value}: {item.Value}");
+                    }
+                }
+            }
          
 
         }
